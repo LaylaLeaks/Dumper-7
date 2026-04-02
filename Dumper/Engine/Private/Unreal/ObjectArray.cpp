@@ -86,7 +86,12 @@ bool IsAddressValidGObjects(const uintptr_t Address, const FFixedUObjectArrayLay
 	if (Platform::IsBadReadPtr(ObjectsButDecrypted))
 		return false;
 
-	if (Platform::IsBadReadPtr(ObjectsButDecrypted[5].Object))
+	if (Platform::IsBadReadPtr(&ObjectsButDecrypted[5].Object))
+		return false;
+
+	void* Obj5 = ObjectsButDecrypted[5].Object;
+
+	if (Platform::IsBadReadPtr(Obj5))
 		return false;
 
 	const uintptr_t FifthObject = reinterpret_cast<uintptr_t>(ObjectsButDecrypted[0x5].Object);
